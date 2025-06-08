@@ -15,3 +15,7 @@
 .idea
 project.config.json
 node_modules
+.local.envrc
+index.json
+src/devTool/miniprogramProject/components
+!src/devTool/miniprogramProject/components/.gitignore

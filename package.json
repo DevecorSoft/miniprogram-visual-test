@@ -5,7 +5,8 @@
     "@types/bun": "^1.2.15",
     "bun": "^1.2.15",
     "miniprogram-automator": "^0.12.1",
-    "typescript": "^5.8.3"
+    "typescript": "^5.8.3",
+    "vitest": "^3.2.2"
   },
   "peerDependencies": {
     "miniprogram-automator": "*"

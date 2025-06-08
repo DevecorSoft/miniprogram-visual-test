@@ -1,13 +1,17 @@
 import * as path from "path";
+import MiniProgram from "miniprogram-automator/out/MiniProgram";
+import Page from "miniprogram-automator/out/Page";
 import automator = require("miniprogram-automator");
+
 import fs from "fs";
-import MiniProgram from ".store/miniprogram-automator-npm-0.12.1-42a39423ce/package/out/MiniProgram";
-import Page from ".store/miniprogram-automator-npm-0.12.1-42a39423ce/package/out/Page";
 
 const config = {
   "libVersion": "3.7.12",
   "projectname": "miniprogramProject",
   "setting": {
+    "useCompilerPlugins": [
+      "typescript"
+    ],
     "es6": true,
     "postcss": true,
     "minified": true,
@@ -19,7 +23,6 @@ const config = {
       "disablePlugins": [],
       "outputPath": ""
     },
-    "useCompilerPlugins": false
   },
   "compileType": "miniprogram",
   "simulatorPluginLibVersion": {},
@@ -30,18 +33,37 @@ const config = {
   "editorSetting": {}
 }
 
-const configureProject = (appId: string): string => {
-  const projectPath = path.resolve(__dirname, './miniprogramProject');
+const projectPath = path.resolve(__dirname, './miniprogramProject');
+
+const configureProject = (appId: string): void => {
   fs.writeFileSync(
     path.join(projectPath, 'project.config.json'),
-    JSON.stringify({...config, appId}, null, 2)
+    JSON.stringify({...config, appid: appId}, null, 2)
   )
-  return projectPath
 }
 
-export async function launch(appId: string): Promise<{ miniProgram: MiniProgram, page: Page }> {
+export function loadTestComponent(testComponentPath: string) {
+  const src = path.dirname(testComponentPath)
+  const basename = path.basename(testComponentPath)
+  const dest = path.join(projectPath, 'components', basename);
+  fs.cpSync(src, dest, {recursive: true})
+  const pagePath = path.join(projectPath, 'pages/index')
+  const testComponent = {
+    "usingComponents": {
+      "test-component": path.relative(pagePath, path.join(dest, basename))
+    }
+  }
+
+  fs.writeFileSync(
+    path.join(pagePath, 'index.json'),
+    JSON.stringify(testComponent, null, 2)
+  )
+}
+
+export async function launchDevTool(appId: string): Promise<{ miniProgram: MiniProgram, page: Page }> {
+  configureProject(appId)
   const miniProgram = await automator.launch({
-    projectPath: configureProject(appId),
+    projectPath,
   });
   const page = (await miniProgram.reLaunch("/pages/index/index"))!;
 

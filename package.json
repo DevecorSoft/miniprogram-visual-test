@@ -1,4 +1,13 @@
 {
   "name": "miniprogram-visual-test",
-  "packageManager": "yarn@4.6.0"
+  "packageManager": "yarn@4.6.0",
+  "devDependencies": {
+    "@types/bun": "^1.2.15",
+    "bun": "^1.2.15",
+    "miniprogram-automator": "^0.12.1",
+    "typescript": "^5.8.3"
+  },
+  "peerDependencies": {
+    "miniprogram-automator": "*"
+  }
 }

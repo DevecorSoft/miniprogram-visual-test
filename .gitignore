@@ -19,3 +19,5 @@ node_modules
 index.json
 src/devTool/miniprogramProject/components
 !src/devTool/miniprogramProject/components/.gitignore
+*.actual.png
+*.diff.png

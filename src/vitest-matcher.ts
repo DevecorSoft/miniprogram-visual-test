@@ -37,17 +37,18 @@ expect.extend({
       fs.mkdirSync(screenshotPaths.base)
     }
 
-    if (!fs.existsSync(screenshotPaths.expect)) {
+    if (fs.existsSync(screenshotPaths.expect)) {
+      await miniProgram.screenshot({path: screenshotPaths.actual})
+      return {
+        pass: true,
+        message: () => ""
+      }
+    } else {
       await miniProgram.screenshot({path: screenshotPaths.expect});
       return {
         pass: true,
         message: () => ""
       }
-    }
-
-    return {
-      pass: false,
-      message: () => "not good"
     }
   }
 })

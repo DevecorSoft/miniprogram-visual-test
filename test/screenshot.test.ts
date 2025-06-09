@@ -26,4 +26,18 @@ describe('load', () => {
     await expect(miniProgram).toMatchScreenshot({})
     expect(fs.existsSync(expectedImagePath)).toEqual(true)
   }, {timeout: 60000})
+
+  it('should able to take a new screenshot for matching', async () => {
+    const expectedImagePath = "test/__image_snapshots__/load  should able to take a new screenshot for matching.actual.png";
+
+    loadTestComponent(path.resolve('test/test-component-js/test-component'))
+    const devTool = await launchDevTool(appId);
+    miniProgram = devTool.miniProgram
+
+    const view = await devTool.page.$("view");
+    await expect(view!.text()).resolves.toBe('js component')
+
+    await expect(miniProgram).toMatchScreenshot({})
+    expect(fs.existsSync(expectedImagePath)).toEqual(true)
+  }, {timeout: 60000})
 })

@@ -1,4 +1,4 @@
-import { describe, it, expect, afterEach } from 'vitest'
+import { afterEach, describe, expect, it } from 'vitest'
 import * as process from "process";
 import { launchDevTool, loadTestComponent } from "../src/devTool/launcher.ts";
 import * as path from "path";
@@ -7,37 +7,41 @@ import fs from "fs";
 
 const appId = process.env.APP_ID!
 
-describe('load', () => {
+describe('screenshot', () => {
   let miniProgram: MiniProgram
 
   afterEach(() => miniProgram.close())
 
   it('should able to take screenshot for first running', async () => {
-    const expectedImagePath = "test/__image_snapshots__/load  should able to take screenshot for first running.png";
-    fs.rmSync(path.dirname(expectedImagePath), {recursive: true})
+    const expectedImagePath = "test/__image_snapshots__/screenshot  should able to take screenshot for first running.png";
+    if (fs.existsSync(expectedImagePath)) fs.rmSync(expectedImagePath)
 
     loadTestComponent(path.resolve('test/test-component-js/test-component'))
-    const devTool = await launchDevTool(appId);
+    const devTool = await launchDevTool(appId)
     miniProgram = devTool.miniProgram
 
-    const view = await devTool.page.$("view");
+    const view = await devTool.page.$("view")
     await expect(view!.text()).resolves.toBe('js component')
 
-    await expect(miniProgram).toMatchScreenshot({})
+    await expect(miniProgram).toMatchScreenshot({maxDiffThreshold: 0})
     expect(fs.existsSync(expectedImagePath)).toEqual(true)
   }, {timeout: 60000})
 
-  it('should able to take a new screenshot for matching', async () => {
-    const expectedImagePath = "test/__image_snapshots__/load  should able to take a new screenshot for matching.actual.png";
+  it('should not pass when the diff is higher than maxDiffThreshold', async () => {
+    const expectedDiffImagePath = "test/__image_snapshots__/screenshot  should not pass when the diff is higher than maxDiffThreshold.diff.png";
+    const expectedActualImagePath = "test/__image_snapshots__/screenshot  should not pass when the diff is higher than maxDiffThreshold.actual.png";
 
-    loadTestComponent(path.resolve('test/test-component-js/test-component'))
-    const devTool = await launchDevTool(appId);
+    loadTestComponent(path.resolve('test/test-component-ts/test-component'))
+    const devTool = await launchDevTool(appId)
     miniProgram = devTool.miniProgram
 
-    const view = await devTool.page.$("view");
-    await expect(view!.text()).resolves.toBe('js component')
+    const view = await devTool.page.$("view")
+    await expect(view!.text()).resolves.toBe('ts component')
 
-    await expect(miniProgram).toMatchScreenshot({})
-    expect(fs.existsSync(expectedImagePath)).toEqual(true)
+    await expect(
+      expect(miniProgram).toMatchScreenshot({maxDiffThreshold: 0})
+    ).rejects.toThrowError(/Image diff factor \(\d\.\d+%\) is bigger than maximum threshold option 0\./)
+    expect(fs.existsSync(expectedDiffImagePath)).toEqual(true)
+    expect(fs.existsSync(expectedActualImagePath)).toEqual(true)
   }, {timeout: 60000})
 })

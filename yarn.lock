@@ -870,6 +870,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/pngjs@npm:^6.0.5":
+  version: 6.0.5
+  resolution: "@types/pngjs@npm:6.0.5"
+  dependencies:
+    "@types/node": "npm:*"
+  checksum: 10c0/11979d0690e774046d3a1e8cfc613a6b53a613909d81c93831cf253800e93ba1a2d47950979b523aebd4fc023351b644d7f4aa2dfcc027c70816a2968420e7da
+  languageName: node
+  linkType: hard
+
 "@vitest/expect@npm:3.2.2, @vitest/expect@npm:^3.2.2":
   version: 3.2.2
   resolution: "@vitest/expect@npm:3.2.2"
@@ -1822,9 +1831,12 @@ __metadata:
   resolution: "miniprogram-visual-test@workspace:."
   dependencies:
     "@types/bun": "npm:^1.2.15"
+    "@types/pngjs": "npm:^6.0.5"
     "@vitest/expect": "npm:^3.2.2"
     bun: "npm:^1.2.15"
     miniprogram-automator: "npm:^0.12.1"
+    pixelmatch: "npm:^7.1.0"
+    pngjs: "npm:^7.0.0"
     sanitize-filename: "npm:^1.6.3"
     typescript: "npm:^5.8.3"
     vitest: "npm:^3.2.2"
@@ -2048,10 +2060,28 @@ __metadata:
   languageName: node
   linkType: hard
 
+"pixelmatch@npm:^7.1.0":
+  version: 7.1.0
+  resolution: "pixelmatch@npm:7.1.0"
+  dependencies:
+    pngjs: "npm:^7.0.0"
+  bin:
+    pixelmatch: bin/pixelmatch
+  checksum: 10c0/ff069f92edaa841ac9b58b0ab74e1afa1f3b5e770eea0218c96bac1da4e752f5f6b79a0f9c4ba6b02afb955d39b8c78bcc3cc884f8122b67a1f2efbbccbe1a73
+  languageName: node
+  linkType: hard
+
 "pngjs@npm:^3.0.0, pngjs@npm:^3.3.3":
   version: 3.4.0
   resolution: "pngjs@npm:3.4.0"
   checksum: 10c0/88ee73e2ad3f736e0b2573722309eb80bd2aa28916f0862379b4fd0f904751b4f61bb6bd1ecd7d4242d331f2b5c28c13309dd4b7d89a9b78306e35122fdc5011
+  languageName: node
+  linkType: hard
+
+"pngjs@npm:^7.0.0":
+  version: 7.0.0
+  resolution: "pngjs@npm:7.0.0"
+  checksum: 10c0/0d4c7a0fd476a9c33df7d0a2a73e1d56537628a668841f6995c2bca070cf30819f9254a64363266bc14ef2fee47659dd3b4f2b18eec7ab65143015139f497b38
   languageName: node
   linkType: hard
 

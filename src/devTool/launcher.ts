@@ -42,13 +42,31 @@ const configureProject = (appId: string): void => {
   )
 }
 
-export function loadTestComponent(testComponentPath: string, testProjectPath: string, template?: string) {
-  const basename = path.basename(testComponentPath)
-  const relative = path.relative(testProjectPath, path.dirname(testComponentPath))
+function copy(testProjectPath: string, src: string) {
+  const relative = path.relative(testProjectPath, src)
   const dest = path.join(projectPath, relative);
-  const src = path.dirname(testComponentPath)
   fs.mkdirSync(dest, {recursive: true})
   fs.cpSync(src, dest, {recursive: true})
+  return dest;
+}
+
+export function loadTestComponent(
+  testComponentPath: string,
+  testProjectPath: string,
+  options?: {
+    template?: string,
+    includes?: string[]
+  }
+) {
+  const basename = path.basename(testComponentPath)
+  const dest = copy(testProjectPath, path.dirname(testComponentPath));
+
+  if (options?.includes != null) {
+    options.includes.forEach((path) => {
+      copy(testProjectPath, path)
+    })
+  }
+
   const pagePath = path.join(projectPath, 'pages/index')
   const testComponent = {
     "usingComponents": {
@@ -62,7 +80,7 @@ export function loadTestComponent(testComponentPath: string, testProjectPath: st
   )
   fs.writeFileSync(
     path.join(pagePath, 'index.wxml'),
-    template ?? `<${basename}/>`
+    options?.template ?? `<${basename}/>`
   )
 }
 

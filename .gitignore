@@ -24,4 +24,4 @@ src/devTool/miniprogramProject/components
 *.diff.png
 dist
 
-**/miniprogramProject/test-component-ts-with-properties
+**/miniprogramProject/test**

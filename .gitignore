@@ -21,3 +21,4 @@ src/devTool/miniprogramProject/components
 !src/devTool/miniprogramProject/components/.gitignore
 *.actual.png
 *.diff.png
+dist

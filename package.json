@@ -2,9 +2,7 @@
   "name": "miniprogram-visual-test",
   "packageManager": "yarn@4.6.0",
   "devDependencies": {
-    "@types/bun": "^1.2.15",
-    "@types/pngjs": "^6.0.5",
-    "@vitest/expect": "^3.2.2",
+    "@types/bun": "^1",
     "bun": "^1.2.15",
     "miniprogram-automator": "^0.12.1",
     "typescript": "^5.8.3",
@@ -15,8 +13,21 @@
     "vitest": "*"
   },
   "dependencies": {
+    "@jest/globals": "^30.0.0",
+    "@types/pngjs": "^6.0.5",
+    "@vitest/expect": "^3.2.2",
     "pixelmatch": "^7.1.0",
     "pngjs": "^7.0.0",
+    "remove": "^0.1.5",
     "sanitize-filename": "^1.6.3"
-  }
+  },
+  "scripts": {
+    "build": "yarn tsc -p tsconfig.build.json && yarn bun build.ts"
+  },
+  "files": [
+    "dist"
+  ],
+  "type": "commonjs",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts"
 }

@@ -1,0 +1,2 @@
+<view class="title">ts component with properties:</view>
+<view class="properties">title: {{title}} and count: {{count}}</view>

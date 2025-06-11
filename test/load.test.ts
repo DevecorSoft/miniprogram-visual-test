@@ -12,7 +12,10 @@ describe('load', () => {
   afterEach(() => miniProgram.close())
 
   it('should able to load js test component', async () => {
-    loadTestComponent(path.resolve('test/test-component-js/test-component'))
+    loadTestComponent(
+      path.resolve('test/test-component-js/test-component'),
+      __dirname
+    )
     const devTool = await launchDevTool(appId);
     miniProgram = devTool.miniProgram
 
@@ -21,11 +24,27 @@ describe('load', () => {
   }, {timeout: 60000})
 
   it('should able to load ts test component', async () => {
-    loadTestComponent(path.resolve('test/test-component-ts/test-component'))
+    loadTestComponent(
+      path.resolve('test/test-component-ts/test-component'),
+      __dirname
+    )
     const devTool = await launchDevTool(appId);
     miniProgram = devTool.miniProgram
 
     const view = await devTool.page.$("view");
     await expect(view!.text()).resolves.toBe('ts component')
+  }, {timeout: 60000})
+
+  it('should able to load ts test component with properties', async () => {
+    loadTestComponent(
+      path.resolve('test/test-component-ts-with-properties/test-component'),
+      __dirname,
+      '<test-component title="visual" count="12"/>'
+    )
+    const devTool = await launchDevTool(appId);
+    miniProgram = devTool.miniProgram
+
+    const view = await devTool.page.$('.component--properties')
+    await expect(view!.text()).resolves.toBe('title: visual and count: 12')
   }, {timeout: 60000})
 })

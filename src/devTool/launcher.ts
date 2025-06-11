@@ -42,21 +42,27 @@ const configureProject = (appId: string): void => {
   )
 }
 
-export function loadTestComponent(testComponentPath: string) {
-  const src = path.dirname(testComponentPath)
+export function loadTestComponent(testComponentPath: string, testProjectPath: string, template?: string) {
   const basename = path.basename(testComponentPath)
-  const dest = path.join(projectPath, 'components', basename);
+  const relative = path.relative(testProjectPath, path.dirname(testComponentPath))
+  const dest = path.join(projectPath, relative);
+  const src = path.dirname(testComponentPath)
+  fs.mkdirSync(dest, {recursive: true})
   fs.cpSync(src, dest, {recursive: true})
   const pagePath = path.join(projectPath, 'pages/index')
   const testComponent = {
     "usingComponents": {
-      "test-component": path.relative(pagePath, path.join(dest, basename))
+      [basename]: path.relative(pagePath, path.join(dest, basename))
     }
   }
 
   fs.writeFileSync(
     path.join(pagePath, 'index.json'),
     JSON.stringify(testComponent, null, 2)
+  )
+  fs.writeFileSync(
+    path.join(pagePath, 'index.wxml'),
+    template ?? `<${basename}/>`
   )
 }
 

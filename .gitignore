@@ -17,8 +17,11 @@ project.config.json
 node_modules
 .local.envrc
 index.json
+index.wxml
 src/devTool/miniprogramProject/components
 !src/devTool/miniprogramProject/components/.gitignore
 *.actual.png
 *.diff.png
 dist
+
+**/miniprogramProject/test-component-ts-with-properties

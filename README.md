@@ -4,17 +4,6 @@ A visual regression testing tool for WeChat Mini Programs, inspired by [cypress-
 
 ---
 
-## Table of Contents
-- [Features](#features)
-- [Installation](#installation)
-- [Usage](#usage)
-  - [Jest](#get-started-with-jest)
-  - [Vitest](#get-started-with-vitest)
-- [Configuration](#configuration)
-- [Example](#example)
-- [Contributing](#contributing)
-- [License](#license)
-
 ## Features
 - Automated screenshot capture for miniprogram pages and components
 - Pixel-by-pixel image diffing with threshold configuration

@@ -25,3 +25,8 @@ src/devTool/miniprogramProject/components
 dist
 
 **/miniprogramProject/test**
+**/miniprogramProject/app.json
+**/miniprogramProject/app.wxss
+**/miniprogramProject/app.ts
+**/miniprogramProject/app.js
+**/miniprogramProject/tsconfig.json

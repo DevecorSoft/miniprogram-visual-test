@@ -1,11 +1,11 @@
 import * as path from "path";
 import MiniProgram from "miniprogram-automator/out/MiniProgram";
 import Page from "miniprogram-automator/out/Page";
-import automator = require("miniprogram-automator");
 
 import fs from "fs";
+import automator = require("miniprogram-automator");
 
-const config = {
+const projectConfig = {
   "libVersion": "3.7.12",
   "projectname": "miniprogramProject",
   "setting": {
@@ -38,11 +38,11 @@ const projectPath = path.resolve(__dirname, './miniprogramProject');
 const configureProject = (appId: string): void => {
   fs.writeFileSync(
     path.join(projectPath, 'project.config.json'),
-    JSON.stringify({...config, appid: appId}, null, 2)
+    JSON.stringify({...projectConfig, appid: appId}, null, 2)
   )
 }
 
-function copy(testProjectPath: string, src: string) {
+function loadIncludeFiles(testProjectPath: string, src: string) {
   const relative = path.relative(testProjectPath, src)
   const dest = path.join(projectPath, relative);
   fs.mkdirSync(dest, {recursive: true})
@@ -50,21 +50,65 @@ function copy(testProjectPath: string, src: string) {
   return dest;
 }
 
+function loadTestConfigFile(testProjectPath: string, fileName: string) {
+  const configFilePath = path.join(projectPath, fileName)
+  const testConfigFilePath = path.join(testProjectPath, fileName)
+
+  fs.copyFileSync(
+    fs.existsSync(testConfigFilePath) ? testConfigFilePath : path.join(projectPath, `${fileName}.default`),
+    configFilePath
+  )
+}
+
+function rm(filePath: string) {
+  if (fs.existsSync(filePath)) {
+    fs.rmSync(filePath)
+  }
+}
+
 export function loadTestComponent(
   testComponentPath: string,
   testProjectPath: string,
   options?: {
     template?: string,
-    includes?: string[]
+    includes?: string[],
   }
 ) {
   const basename = path.basename(testComponentPath)
-  const dest = copy(testProjectPath, path.dirname(testComponentPath));
+  const dest = loadIncludeFiles(testProjectPath, path.dirname(testComponentPath));
 
   if (options?.includes != null) {
     options.includes.forEach((path) => {
-      copy(testProjectPath, path)
+      loadIncludeFiles(testProjectPath, path)
     })
+  }
+
+  loadTestConfigFile(testProjectPath, 'tsconfig.json')
+  loadTestConfigFile(testProjectPath, 'app.wxss')
+
+  const testAppJsonFilePath = path.join(testProjectPath, 'app.json')
+  const appJsonFilePath = path.join(projectPath, 'app.json')
+  if(fs.existsSync(testAppJsonFilePath)) {
+    const appJson = JSON.parse(fs.readFileSync(testAppJsonFilePath, {encoding: 'utf-8'}))
+    fs.writeFileSync(appJsonFilePath, JSON.stringify({
+      ...appJson,
+      pages: [
+        "pages/index/index",
+      ]
+    }, null, 2))
+  } else {
+    loadTestConfigFile(testProjectPath, 'app.json')
+  }
+
+  const testAppjsPath = path.join(testProjectPath, 'app.js')
+  const appjsPath = path.join(projectPath, 'app.js')
+  const appTsPath = path.join(projectPath, 'app.ts')
+  rm(appjsPath)
+  rm(appTsPath)
+  if (fs.existsSync(testAppjsPath)) {
+    loadTestConfigFile(testProjectPath, 'app.js')
+  } else {
+    loadTestConfigFile(testProjectPath, 'app.ts')
   }
 
   const pagePath = path.join(projectPath, 'pages/index')

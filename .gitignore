@@ -18,17 +18,17 @@ node_modules
 .local.envrc
 index.json
 index.wxml
-src/devTool/miniprogramProject/components
-!src/devTool/miniprogramProject/components/.gitignore
 *.actual.png
 *.diff.png
 dist
 
-**/miniprogramProject/test**
-**/miniprogramProject/app.json
-**/miniprogramProject/app.wxss
-**/miniprogramProject/app.ts
-**/miniprogramProject/app.js
-**/miniprogramProject/tsconfig.json
+**/miniprogramProject/**
+!**/miniprogramProject/app.js.default
+!**/miniprogramProject/app.json.default
+!**/miniprogramProject/app.ts.default
+!**/miniprogramProject/app.wxss.default
+!**/miniprogramProject/project.private.config.json
+!**/miniprogramProject/tsconfig.json.default
+!**/miniprogramProject/pages
 
 screenshot  should able to take screenshot for first running.png

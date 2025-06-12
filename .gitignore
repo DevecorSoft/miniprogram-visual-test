@@ -30,3 +30,5 @@ dist
 **/miniprogramProject/app.ts
 **/miniprogramProject/app.js
 **/miniprogramProject/tsconfig.json
+
+screenshot  should able to take screenshot for first running.png

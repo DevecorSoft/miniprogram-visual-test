@@ -16,7 +16,7 @@ describe('screenshot', () => {
     const expectedImagePath = "test/__image_snapshots__/screenshot  should able to take screenshot for first running.png";
     if (fs.existsSync(expectedImagePath)) fs.rmSync(expectedImagePath)
 
-    loadTestComponent(path.resolve('test/test-component-js/test-component'))
+    loadTestComponent(path.resolve('test/test-component-js/test-component'), __dirname)
     const devTool = await launchDevTool(appId)
     miniProgram = devTool.miniProgram
 
@@ -31,7 +31,7 @@ describe('screenshot', () => {
     const expectedDiffImagePath = "test/__image_snapshots__/screenshot  should not pass when the diff is higher than maxDiffThreshold.diff.png";
     const expectedActualImagePath = "test/__image_snapshots__/screenshot  should not pass when the diff is higher than maxDiffThreshold.actual.png";
 
-    loadTestComponent(path.resolve('test/test-component-ts/test-component'))
+    loadTestComponent(path.resolve('test/test-component-ts/test-component'), __dirname)
     const devTool = await launchDevTool(appId)
     miniProgram = devTool.miniProgram
 

@@ -20,3 +20,4 @@ fs.cpSync("./src/devTool/miniprogramProject", "./dist/devTool/miniprogramProject
 fs.cpSync('LICENSE', './dist/LICENSE')
 fs.cpSync('package.json', './dist/package.json')
 fs.cpSync('README.md', './dist/README.md')
+fs.cpSync('.npmrc', './dist/.npmrc')

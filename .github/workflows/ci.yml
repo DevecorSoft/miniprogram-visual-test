@@ -19,4 +19,4 @@ jobs:
           yarn install
           yarn build
           
-          npm publish --access public
+          cd dist && npm publish --access public

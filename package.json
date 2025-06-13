@@ -1,6 +1,6 @@
 {
   "name": "@devecorsoft/miniprogram-visual-test",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "homepage": "https://github.com/DevecorSoft/miniprogram-visual-test",
   "description": "a visual test tool for wechat miniprogram custom components",
   "license": "MIT",
@@ -10,7 +10,7 @@
     "miniprogram"
   ],
   "files": [
-    "dist"
+    "*"
   ],
   "packageManager": "yarn@4.6.0",
   "devDependencies": {
@@ -36,6 +36,6 @@
     "build": "yarn tsc -p tsconfig.build.json && node ./build.js"
   },
   "type": "commonjs",
-  "main": "./dist/index.js",
-  "types": "./dist/index.d.ts"
+  "main": "./index.js",
+  "types": "./index.d.ts"
 }

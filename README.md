@@ -36,7 +36,7 @@ module.exports = {
   // ...existing config
   setupFilesAfterEnv: [
     // ...other setup files
-    '@devecorsoft/miniprogram-visual-test/dist/jest-matcher',
+    '@devecorsoft/miniprogram-visual-test/jest-matcher',
   ],
 };
 ```

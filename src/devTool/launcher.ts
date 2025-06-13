@@ -1,7 +1,6 @@
 import * as path from "path";
 import MiniProgram from "miniprogram-automator/out/MiniProgram";
 import Page from "miniprogram-automator/out/Page";
-import { fileURLToPath } from 'url';
 
 import fs from "fs";
 import automator = require("miniprogram-automator");
@@ -34,7 +33,7 @@ const projectConfig = {
   "editorSetting": {}
 }
 
-const projectPath = path.resolve(path.dirname(fileURLToPath(import.meta.url)), './miniprogramProject');
+const projectPath = path.resolve(__dirname, './miniprogramProject');
 
 const configureProject = (appId: string): void => {
   fs.writeFileSync(

@@ -1,9 +1,11 @@
-import fs from 'fs'
+const fs = require('fs')
+const esbuild = require('esbuild')
 
-await Bun.build({
-  entrypoints: ['./src/vitest-matcher.ts', './src/jest-matcher.ts', './src/index.ts'],
+esbuild.build({
+  entryPoints: ['./src/vitest-matcher.ts', './src/jest-matcher.ts', './src/index.ts'],
+  bundle: true,
   outdir: './dist',
-  target: 'node',
+  platform: 'node',
   format: 'cjs',
   sourcemap: 'external',
   external: ['vitest', 'miniprogram-automator'],

@@ -11,4 +11,4 @@ esbuild.build({
   external: ['vitest', 'miniprogram-automator'],
 });
 
-fs.cpSync("./src/devTool/miniprogramProject", "./dist/devTool/", {recursive: true})
+fs.cpSync("./src/devTool/miniprogramProject", "./dist/devTool/miniprogramProject", {recursive: true})

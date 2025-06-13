@@ -6,7 +6,10 @@ await Bun.build({
   target: 'node',
   format: 'cjs',
   sourcemap: 'external',
-  external: ['vitest', 'miniprogram-automator']
+  external: ['vitest', 'miniprogram-automator'],
+  define: {
+    __dirname: "__dirname"
+  }
 });
 
 fs.cpSync("./src/devTool/miniprogramProject", "./dist/devTool/", {recursive: true})

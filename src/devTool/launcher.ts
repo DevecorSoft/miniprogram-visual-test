@@ -50,6 +50,14 @@ function loadIncludeFiles(testProjectPath: string, src: string) {
   return dest;
 }
 
+function replaceFile(testProjectPath: string, src: string, content: string) {
+  const relative = path.relative(testProjectPath, src)
+  const dest = path.join(projectPath, relative);
+  const destDir = path.dirname(dest)
+  if (!fs.existsSync(destDir)) fs.mkdirSync(destDir, {recursive: true})
+  fs.writeFileSync(dest, content)
+}
+
 function loadTestConfigFile(testProjectPath: string, fileName: string) {
   const configFilePath = path.join(projectPath, fileName)
   const testConfigFilePath = path.join(testProjectPath, fileName)
@@ -72,6 +80,7 @@ export function loadTestComponent(
   options?: {
     template?: string,
     includes?: string[],
+    stubs?: Record<string, string>
   }
 ) {
   const basename = path.basename(testComponentPath)
@@ -80,6 +89,11 @@ export function loadTestComponent(
   if (options?.includes != null) {
     options.includes.forEach((path) => {
       loadIncludeFiles(testProjectPath, path)
+    })
+  }
+  if(options?.stubs != null) {
+    Object.keys(options.stubs).forEach((path) => {
+      replaceFile(testProjectPath, path, options.stubs![path]!)
     })
   }
 

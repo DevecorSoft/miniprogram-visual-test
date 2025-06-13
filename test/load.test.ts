@@ -75,4 +75,22 @@ describe('load', () => {
     const view = await devTool.page.$('view')
     await expect(view!.text()).resolves.toBe('the project dependency')
   }, {timeout: 60000})
+
+  it('should able to load ts test component from a complex project and stub dependency', async () => {
+    loadTestComponent(
+      path.resolve('test/testComplexProject/test-component-ts-with-dependency/test-component'),
+      path.resolve('test/testComplexProject'),
+      {
+        includes: [path.resolve('test/testComplexProject/projectdeps')],
+        stubs: {
+          [path.resolve('test/testComplexProject/projectdeps/dependency.ts')]: "export const dependency = 'the stubbed project dependency'"
+        }
+      }
+    )
+    const devTool = await launchDevTool(appId);
+    miniProgram = devTool.miniProgram
+
+    const view = await devTool.page.$('view')
+    await expect(view!.text()).resolves.toBe('the stubbed project dependency')
+  }, {timeout: 60000})
 })

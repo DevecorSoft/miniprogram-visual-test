@@ -382,9 +382,11 @@ __metadata:
   resolution: "@devecorsoft/miniprogram-visual-test@workspace:."
   dependencies:
     "@jest/globals": "npm:^30.0.0"
+    "@types/lodash": "npm:^4"
     "@types/pngjs": "npm:^6.0.5"
     "@vitest/expect": "npm:^3.2.2"
     esbuild: "npm:^0.25.5"
+    lodash: "npm:^4.17.21"
     miniprogram-automator: "npm:^0.12.1"
     pixelmatch: "npm:^7.1.0"
     pngjs: "npm:^7.0.0"
@@ -1417,6 +1419,13 @@ __metadata:
   dependencies:
     "@types/istanbul-lib-report": "npm:*"
   checksum: 10c0/1647fd402aced5b6edac87274af14ebd6b3a85447ef9ad11853a70fd92a98d35f81a5d3ea9fcb5dbb5834e800c6e35b64475e33fcae6bfa9acc70d61497c54ee
+  languageName: node
+  linkType: hard
+
+"@types/lodash@npm:^4":
+  version: 4.17.17
+  resolution: "@types/lodash@npm:4.17.17"
+  checksum: 10c0/8e75df02a15f04d4322c5a503e4efd0e7a92470570ce80f17e9f11ce2b1f1a7c994009c9bcff39f07e0f9ffd8ccaff09b3598997c404b801abd5a7eee5a639dc
   languageName: node
   linkType: hard
 
@@ -3333,6 +3342,13 @@ __metadata:
   dependencies:
     p-locate: "npm:^4.1.0"
   checksum: 10c0/33a1c5247e87e022f9713e6213a744557a3e9ec32c5d0b5efb10aa3a38177615bf90221a5592674857039c1a0fd2063b82f285702d37b792d973e9e72ace6c59
+  languageName: node
+  linkType: hard
+
+"lodash@npm:^4.17.21":
+  version: 4.17.21
+  resolution: "lodash@npm:4.17.21"
+  checksum: 10c0/d8cbea072bb08655bb4c989da418994b073a608dffa608b09ac04b43a791b12aeae7cd7ad919aa4c925f33b48490b5cfe6c1f71d827956071dae2e7bb3a6b74c
   languageName: node
   linkType: hard
 

@@ -1,5 +1,6 @@
 import path from "path";
 import fs from "fs";
+import _ from "lodash";
 
 export const projectPath = path.resolve(__dirname, './miniprogramProject');
 
@@ -35,28 +36,58 @@ function rm(filePath: string) {
   }
 }
 
+export type LoadOptions = {
+  template?: string,
+  includes?: string[],
+  stubs?: Record<string, string>
+}
+
+type LoadOptionsForHandler = {
+  readonly template: string | null,
+  readonly includes: string[],
+  readonly stubs: Record<string, string>
+}
+
+type Project = {
+  readonly testComponentName: string
+  readonly indexPagePath: string
+  readonly testProjectPath: string
+}
+
+const optionHandlers: {[K in keyof LoadOptionsForHandler]: (option: LoadOptionsForHandler[K], project: Project) => void} = {
+  template: (option, project) => {
+    fs.writeFileSync(
+      path.join(project.indexPagePath, 'index.wxml'),
+      option ?? `<${project.testComponentName}/>`
+    )
+  },
+  includes: (option, project) => {
+    option.forEach((path) => {
+      loadIncludeFiles(project.testProjectPath, path)
+    })
+  },
+  stubs: (option, project) => {
+    Object.keys(option).forEach((path) => {
+      replaceFile(project.testProjectPath, path, option[path]!)
+    })
+  }
+}
+
+function convertToLoadOptionsForHandler(loadOptions: LoadOptions): LoadOptionsForHandler {
+  return _.defaults(loadOptions, {
+    template: null,
+    includes: [],
+    stubs: {}
+  })
+}
+
 export function loadTestComponent(
   testComponentPath: string,
   testProjectPath: string,
-  options?: {
-    template?: string,
-    includes?: string[],
-    stubs?: Record<string, string>
-  }
+  options?: LoadOptions
 ) {
   const basename = path.basename(testComponentPath)
   const dest = loadIncludeFiles(testProjectPath, path.dirname(testComponentPath));
-
-  if (options?.includes != null) {
-    options.includes.forEach((path) => {
-      loadIncludeFiles(testProjectPath, path)
-    })
-  }
-  if (options?.stubs != null) {
-    Object.keys(options.stubs).forEach((path) => {
-      replaceFile(testProjectPath, path, options.stubs![path]!)
-    })
-  }
 
   loadTestConfigFile(testProjectPath, 'tsconfig.json')
   loadTestConfigFile(testProjectPath, 'app.wxss')
@@ -97,8 +128,19 @@ export function loadTestComponent(
     path.join(pagePath, 'index.json'),
     JSON.stringify(testComponent, null, 2)
   )
-  fs.writeFileSync(
-    path.join(pagePath, 'index.wxml'),
-    options?.template ?? `<${basename}/>`
-  )
+
+  if (!options) {
+    return
+  }
+
+  const loadOptionsForHandler = convertToLoadOptionsForHandler(options);
+  const project: Project = {
+    indexPagePath: path.join(projectPath, 'pages/index'),
+    testComponentName: basename,
+    testProjectPath: testProjectPath
+  }
+
+  _.toPairs<LoadOptionsForHandler>(loadOptionsForHandler).forEach(([key, value]) => {
+    optionHandlers[key as keyof LoadOptionsForHandler](value as any, project)
+  })
 }

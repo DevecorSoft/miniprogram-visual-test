@@ -5,9 +5,10 @@ A visual regression testing tool for WeChat Mini Programs, inspired by [cypress-
 ---
 
 ## Features
-- Automated screenshot capture for miniprogram pages and components
+- Automated screenshot capture for miniprogram custom components
 - Pixel-by-pixel image diffing with threshold configuration
 - Integrates with Vitest and Jest
+- Forwards wx.request to anywhere you want
 - Easy to extend and customize
 
 ## Installation
@@ -63,7 +64,7 @@ describe('screenshot', () => {
         includes: ['miniprogram_npm', 'styles', 'commonDeps']
       }
     )
-    const devTool = await launchDevTool(appId)
+    const devTool = await launchDevTool(appId, {forwardRequestTo: 'http://localhost:8080/path'})
     miniProgram = devTool.miniProgram
     
     const view = await devTool.page.$("view")
@@ -73,6 +74,8 @@ describe('screenshot', () => {
   })
 })
 ```
+
+Note that: see [tests](https://github.com/DevecorSoft/miniprogram-visual-test/tree/main/test) for all the usages.
 
 ## Contributing
 

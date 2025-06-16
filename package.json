@@ -1,6 +1,6 @@
 {
   "name": "@devecorsoft/miniprogram-visual-test",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "homepage": "https://github.com/DevecorSoft/miniprogram-visual-test",
   "description": "a visual test tool for wechat miniprogram custom components",
   "license": "MIT",
@@ -17,8 +17,10 @@
     "@types/lodash": "^4",
     "esbuild": "^0.25.5",
     "miniprogram-automator": "^0.12.1",
+    "testcontainers": "^11.0.3",
     "typescript": "^5.8.3",
-    "vitest": "^3.2.2"
+    "vitest": "^3.2.2",
+    "wiremock-rest-client": "^1.11.0"
   },
   "peerDependencies": {
     "miniprogram-automator": "*",
@@ -29,6 +31,7 @@
     "@types/pngjs": "^6.0.5",
     "@vitest/expect": "^3.2.2",
     "lodash": "^4.17.21",
+    "miniprogram-api-typings": "^4.0.7",
     "pixelmatch": "^7.1.0",
     "pngjs": "^7.0.0",
     "remove": "^0.1.5",

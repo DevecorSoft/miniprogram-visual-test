@@ -129,11 +129,7 @@ export function loadTestComponent(
     JSON.stringify(testComponent, null, 2)
   )
 
-  if (!options) {
-    return
-  }
-
-  const loadOptionsForHandler = convertToLoadOptionsForHandler(options);
+  const loadOptionsForHandler = convertToLoadOptionsForHandler(options ?? {});
   const project: Project = {
     indexPagePath: path.join(projectPath, 'pages/index'),
     testComponentName: basename,

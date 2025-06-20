@@ -25,6 +25,8 @@ Or with yarn:
 yarn add -D @devecorsoft/miniprogram-visual-test miniprogram-automator
 ```
 
+Note that please make sure you have [wechat miniprogram devtool](https://developers.weixin.qq.com/miniprogram/dev/devtools/devtools.html) installed. 
+
 ## Usage
 
 ### Get started with Jest

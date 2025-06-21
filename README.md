@@ -79,6 +79,11 @@ describe('screenshot', () => {
 
 Note that: see [tests](https://github.com/DevecorSoft/miniprogram-visual-test/tree/main/test) for all the usages.
 
+## Maintaining Stable Visual Testing
+
+1. Use a fixed color profile by following these steps in DevTools: Settings → Open Chrome flags settings → Force color profile → sRGB.
+2. Use monitors with similar physical resolutions. Although you can manually set the device's DPR (device pixel ratio) to 1 in the emulator, high-resolution monitors may still cause screenshots to double in size, making image comparisons less accurate.
+
 ## Contributing
 
 Contributions are welcome! Please open issues or pull requests for bug fixes, features, or documentation improvements.
